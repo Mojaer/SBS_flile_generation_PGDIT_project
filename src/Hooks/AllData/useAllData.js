@@ -6,8 +6,8 @@ const useAllData = () => {
         const res = await fetch('http://localhost:5000/allData')
         const data = await res.json()
         return data
+    });
 
-    })
     return [allData]
 };
 

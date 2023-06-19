@@ -7,15 +7,12 @@ function App() {
   const [data, setData] = useState([]);
   const [file, setFile] = useState(null);
   const [month, setMonth] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState('');
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
-
-
-
-
   };
-
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -31,24 +28,37 @@ function App() {
     const data = utils.sheet_to_json(ws); // generate objects
     setData(data); // update state
     setMonth(event.target.month.value)
+    setLoading(true)
   }
 
-  console.log(data, month)
+  // console.log(data, month)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const accData = { data, month }
   useEffect(() => {
-    fetch('http://localhost:5000/accdata', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify(accData)
-    })
+    if (accData.data.length > 0) {
+
+      fetch('http://localhost:5000/accdata', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify(accData)
+      }).then(res => res.json())
+        .then(data => {
+          if (data.insertedCount > 0) {
+            setMessage('Data inserted successfully')
+          } else {
+            setMessage(data.message)
+          }
+        })
+
+      setLoading(false);
+    }
+
   }, [accData])
 
   return (
     <>
-
       <form onSubmit={handleSubmit} className="flex items-center space-x-6">
         <span className="sr-only">Upload Excel</span>
         <input type="file" required
@@ -60,8 +70,8 @@ function App() {
       file:bg-violet-50 file:text-violet-700
       hover:file:bg-violet-100
     "/>
-        <select className="select bg-gray-300 select-bordered w-full text-xl max-w-xs p-4 border-spacing-1 rounded-xl outline-1" name="month">
-          <option disabled selected>Month</option>
+        <select className="select bg-gray-300 select-bordered ps-4 w-full text-xl max-w-xs p-2 border-spacing-1 rounded-xl outline-1" name="month">
+          <option disabled defaultValue>Month</option>
           <option>January</option>
           <option>February</option>
           <option>March</option>
@@ -74,8 +84,11 @@ function App() {
           <option>October</option>
         </select>
 
-        <button className="btn bg-green-600 font-semibold px-4 text-xl p-4 rounded-xl " type="submit">Upload</button>
+        <button className="btn bg-green-600 font-semibold px-4 text-xl p-2 rounded-xl " type="submit">Upload</button>
       </form>
+      <br />
+      <br />
+      {loading ? <div>Loading.</div> : <div className="text-red-500 font-semibold">{message}</div>}
     </>
   )
 }

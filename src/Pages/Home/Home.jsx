@@ -1,10 +1,12 @@
-import App from "../../App";
+import { Outlet } from "react-router-dom";
+import Header from "../../Shared/Header/Header";
 
 
 const Home = () => {
     return (
         <div>
-            <App></App>
+            <Header></Header>
+            <Outlet></Outlet>
 
         </div>
     );
