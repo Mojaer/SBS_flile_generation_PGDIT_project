@@ -28,15 +28,16 @@ function App() {
     const data = utils.sheet_to_json(ws); // generate objects
     setData(data); // update state
     setMonth(event.target.month.value)
-    setLoading(true)
   }
 
   // console.log(data, month)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const accData = { data, month }
-  useEffect(() => {
-    if (accData.data.length > 0) {
 
+  useEffect(() => {
+    if (accData.data.length > 0 && !loading) {
+      setMessage('loading...')
+      // console.log(accData.data.length)
       fetch('http://localhost:5000/accdata', {
         method: 'POST',
         headers: {
@@ -52,10 +53,10 @@ function App() {
           }
         })
 
-      setLoading(false);
+      setLoading(true);
     }
 
-  }, [accData])
+  }, [accData, loading])
 
   return (
     <>
@@ -88,7 +89,7 @@ function App() {
       </form>
       <br />
       <br />
-      {loading ? <div>Loading.</div> : <div className="text-red-500 font-semibold">{message}</div>}
+      {!loading ? '' : <div className="text-red-500 font-semibold">{message}</div>}
     </>
   )
 }
