@@ -78,7 +78,7 @@ const Data = () => {
                         <tbody className="">
                             {/*  row  */}
                             {monthlyData.data.map((data, index) =>
-                                <DataTable key={data._id} data={data} index={index}></DataTable>)}
+                                <DataTable key={data._id} data={data} currentMonth={currentMonth} index={index}></DataTable>)}
                         </tbody>
                     </table>
                     }
