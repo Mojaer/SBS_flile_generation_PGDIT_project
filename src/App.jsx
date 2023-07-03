@@ -38,7 +38,7 @@ function App() {
     if (accData.data.length > 0 && !loading) {
       setMessage('loading...')
       // console.log(accData.data.length)
-      fetch('http://localhost:5000/accdata', {
+      fetch('https://sbs-server.vercel.app/accdata', {
         method: 'POST',
         headers: {
           'content-type': 'application/json'

@@ -1,18 +1,18 @@
 
 import { useState } from "react";
-import useAllData from "../../Hooks/AllData/useAllData";
+// import useAllData from "../../Hooks/AllData/useAllData";
 import DataTable from "./DataTable/DataTable";
 
 
 const Data = () => {
-    const [allData] = useAllData()
+    // const [allData] = useAllData()
     const [currentMonth, setCurrentMonth] = useState(null)
     const [monthlyData, setMonthlyData] = useState({ error: true })
 
 
     const CodesLoad = () => {
         //TODO: here all codes from previous data will be loadedcons
-        fetch(`http://localhost:5000/data?month=${currentMonth}`, {
+        fetch(`https://sbs-server.vercel.app/data?month=${currentMonth}`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(monthlyData)
@@ -26,7 +26,7 @@ const Data = () => {
         setCurrentMonth(month)
 
 
-        fetch(`http://localhost:5000/data?month=${month}`)
+        fetch(`https://sbs-server.vercel.app/data?month=${month}`)
             .then(response => response.json())
             .then(res => setMonthlyData(res))
 

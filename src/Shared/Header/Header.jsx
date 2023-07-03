@@ -7,6 +7,7 @@ const Header = () => {
     const navItem = <>
         <li><Link to='/'>Home</Link></li>
         <li><Link to='/data'>Data</Link></li>
+        <li><Link to='/sbs_data'>SBS_Data</Link></li>
     </>
     return (
         <nav className="navbar bg-base-100 mb-10">
