@@ -9,7 +9,7 @@
 //     useEffect(() => {
 //         if (accData.data.length > 0) {
 
-//             fetch('http://localhost:5000/accdata', {
+//             fetch('https://sbs-server-mojaer.vercel.app/accdata', {
 //                 method: 'POST',
 //                 headers: {
 //                     'content-type': 'application/json'

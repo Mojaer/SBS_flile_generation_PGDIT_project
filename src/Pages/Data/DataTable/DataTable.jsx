@@ -14,7 +14,7 @@ const DataTable = ({ data, index, currentMonth }) => {
         // console.log(hs_code, vs_code)
         const code = { hs_code, vs_code, Ac_NO }
         if (hs_code != '---' && vs_code != '---') {
-            fetch(`http://localhost:5000/codeUpdate?month=${currentMonth}`, {
+            fetch(`https://sbs-server-mojaer.vercel.app/codeUpdate?month=${currentMonth}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json'

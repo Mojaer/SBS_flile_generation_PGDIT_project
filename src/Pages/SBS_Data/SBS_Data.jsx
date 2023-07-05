@@ -10,7 +10,7 @@ const SBS_Data = () => {
         const month = event.target.month.value
         // setCurrentMonth(month)
 
-        fetch(`https://sbs-server.vercel.app/sbs_data?month=${month}`)
+        fetch(`https://sbs-server-mojaer.vercel.app/sbs_data?month=${month}`)
             .then(response => response.json())
             .then(res => setSbsData(res.data))
 

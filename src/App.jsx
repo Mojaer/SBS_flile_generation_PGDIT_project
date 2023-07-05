@@ -32,31 +32,47 @@ function App() {
 
   // console.log(data, month)
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const accData = { data, month }
+
 
   useEffect(() => {
-    if (accData.data.length > 0 && !loading) {
+    if (data.length > 0 && !loading) {
       setMessage('loading...')
       // console.log(accData.data.length)
-      fetch('https://sbs-server.vercel.app/accdata', {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json'
-        },
-        body: JSON.stringify(accData)
-      }).then(res => res.json())
-        .then(data => {
-          if (data.insertedCount > 0) {
-            setMessage('Data inserted successfully')
-          } else {
-            setMessage(data.message)
-          }
-        })
+      // const accData = { data }
+      const length = Math.ceil(data.length / 100)
+
+      for (let i = 0; i < length; i++) {
+        let first = i * 100;
+        let last = (i + 1) * 100;
+
+        setTimeout(() => {
+          let datachunk = data.slice(first, last);
+          const accData = { data: datachunk }
+          // const number = Math.pow(-1, i)
+          fetch(`https://sbs-server-mojaer.vercel.app/accdata?month=${month}`, {
+            method: 'POST',
+            headers: {
+              'content-type': 'application/json'
+            },
+            body: JSON.stringify(accData)
+          }).then(res => res.json())
+            .then(data => {
+              if (data.insertedCount > 0) {
+                setMessage(`${Math.ceil(i * 100 / (length - 1))}% Data inserted successfully`)
+              } else {
+                setMessage(data.message)
+                console.log(accData);
+              }
+            })
+
+          // console.log(accData);
+        }, 8000 * i)
+      }
 
       setLoading(true);
     }
 
-  }, [accData, loading])
+  }, [data, loading, month])
 
   return (
     <>
