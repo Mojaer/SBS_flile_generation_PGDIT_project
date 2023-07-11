@@ -3,6 +3,9 @@ import Home from "../Pages/Home/Home";
 import Data from "../Pages/Data/Data";
 import App from "../App";
 import SBS_Data from "../Pages/SBS_Data/SBS_Data";
+import PrivateRoute from "../Authentication/PrivateRoute/PrivateRoute";
+import Login from "../Pages/Registratoin/Login";
+import Registration from "../Pages/Registratoin/Registration";
 
 
 const router = createBrowserRouter([
@@ -12,17 +15,25 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "/",
-                element: <App></App>,
+                element: <PrivateRoute> <App></App></PrivateRoute>,
             },
             {
                 path: "/data",
-                element: <Data></Data>,
+                element: <PrivateRoute> <Data></Data></PrivateRoute>,
             },
             {
                 path: "/sbs_data",
-                element: <SBS_Data></SBS_Data>,
+                element: <PrivateRoute> <SBS_Data></SBS_Data></PrivateRoute>,
             },
         ]
+    },
+    {
+        path: '/login',
+        element: <Login></Login>,
+    },
+    {
+        path: '/registration',
+        element: <Registration></Registration>,
     },
     {
         path: '*',

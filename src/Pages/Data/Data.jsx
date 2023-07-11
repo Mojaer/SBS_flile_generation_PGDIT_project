@@ -3,6 +3,7 @@ import { useState } from "react";
 // import useAllData from "../../Hooks/AllData/useAllData";
 import DataTable from "./DataTable/DataTable";
 import Swal from "sweetalert2";
+import MonthList from "../../Shared/MonthList/MonthList";
 
 
 const Data = () => {
@@ -107,16 +108,8 @@ const Data = () => {
                 <form onSubmit={handleData} className="flex flex-row items-center">
                     <select className="select bg-gray-300 select-bordered ps-4 w-full text-xl max-w-xs p-2 border-spacing-1 rounded-xl outline-1" name="month">
                         <option disabled defaultValue>Month</option>
-                        <option>January</option>
-                        <option>February</option>
-                        <option>March</option>
-                        <option>April</option>
-                        <option>May</option>
-                        <option>June</option>
-                        <option>July</option>
-                        <option>August</option>
-                        <option>September</option>
-                        <option>October</option>
+                        <MonthList></MonthList>
+
                     </select>
                     <input className="btn btn-sm ms-5" type="submit" value='Show' />
                 </form>

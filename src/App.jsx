@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { read, utils } from 'xlsx';
 import './App.css'
+import MonthList from "./Shared/MonthList/MonthList";
 
 function App() {
 
@@ -48,7 +49,7 @@ function App() {
         setTimeout(() => {
           let datachunk = data.slice(first, last);
           const accData = { data: datachunk }
-          // const number = Math.pow(-1, i)
+
           fetch(`https://sbs-server-mojaer.vercel.app/accdata?month=${month}`, {
             method: 'POST',
             headers: {
@@ -89,16 +90,7 @@ function App() {
     "/>
         <select className="select bg-gray-300 select-bordered ps-4 w-full text-xl max-w-xs p-2 border-spacing-1 rounded-xl outline-1" name="month">
           <option disabled defaultValue>Month</option>
-          <option>January</option>
-          <option>February</option>
-          <option>March</option>
-          <option>April</option>
-          <option>May</option>
-          <option>June</option>
-          <option>July</option>
-          <option>August</option>
-          <option>September</option>
-          <option>October</option>
+          <MonthList></MonthList>
         </select>
 
         <button className="btn bg-green-600 font-semibold px-4 text-xl p-2 rounded-xl " type="submit">Upload</button>

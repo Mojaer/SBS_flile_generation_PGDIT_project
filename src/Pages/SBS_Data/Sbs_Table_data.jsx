@@ -1,7 +1,7 @@
 
 
 const Sbs_Table_data = ({ data, index }) => {
-    console.log(data)
+    // console.log(data)
     const { code, s12110s, s12120s, s12500s, s12210s, s12220s, s12230s, s12240s, s12250s, s12330s, s12340s, s12350s, s12360s, s12370s, s12380s, s12390s } = data
     return (
         <tr>

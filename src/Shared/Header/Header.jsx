@@ -1,13 +1,21 @@
-import { Link } from "react-router-dom";
+import { NavLink, Navigate } from "react-router-dom";
+import { useContext } from "react";
+import { authContext } from "../../Authentication/AuthCenter/AuthContext";
 
 
 const Header = () => {
+    const { user, userLogout } = useContext(authContext);
+
+    const handleDelete = () => {
+        userLogout()
+        return <Navigate to="/login" replace={true} />
+    }
 
 
     const navItem = <>
-        <li><Link to='/'>Home</Link></li>
-        <li><Link to='/data'>Data</Link></li>
-        <li><Link to='/sbs_data'>SBS_Data</Link></li>
+        <li><NavLink to='/'>Home</NavLink></li>
+        <li><NavLink to='/data'>Data</NavLink></li>
+        <li><NavLink to='/sbs_data'>SBS_Data</NavLink></li>
     </>
     return (
         <nav className="navbar bg-base-100 mb-10">
@@ -20,7 +28,7 @@ const Header = () => {
                         {navItem}
                     </ul>
                 </div>
-                <a className="btn btn-ghost normal-case text-xl">daisyUI</a>
+                <a className="btn btn-ghost normal-case text-xl">SBS Generator</a>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
@@ -28,7 +36,7 @@ const Header = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <a className="btn">Button</a>
+                {user && <button onClick={handleDelete} className="btn">Logout</button>}
             </div>
         </nav>
     );
