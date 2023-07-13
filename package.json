@@ -20,6 +20,7 @@
     "react-router-dom": "^6.13.0",
     "sort-by": "^0.0.2",
     "sweetalert2": "^11.7.14",
+    "swiper": "^10.0.4",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {

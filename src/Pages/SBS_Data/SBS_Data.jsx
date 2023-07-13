@@ -1,7 +1,13 @@
 import { useRef, useState } from "react";
-import Sbs_Table_data from "./Sbs_Table_data";
+import Sbs_Table_data from "./ROWS/Sbs_Table_data";
 import MonthList from "../../Shared/MonthList/MonthList";
 import { DownloadTableExcel } from "react-export-table-to-excel";
+import SBS_Vertical_Total from "./ROWS/SBS_Vertical_Total";
+import SBS_Sector_title from "./ROWS/SBS_Sector_title";
+import SBS_Sector_Code_Row from "./ROWS/SBS_Sector_Code_Row";
+import Constant_Titles from "./ROWS/Constant_Titles";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { FreeMode, Pagination } from 'swiper/modules';
 
 
 const SBS_Data = () => {
@@ -19,7 +25,6 @@ const SBS_Data = () => {
 
     }
 
-    // console.log(currentMonth, sbs_data)
     return (
         <section>
             <form onSubmit={handleData} className="flex flex-row items-center">
@@ -34,48 +39,47 @@ const SBS_Data = () => {
                 sheet={currentMonth}
                 currentTableRef={tableRef.current}
             >
-
                 {currentMonth && <button className="btn btn-primary mt-4"> Convert to excel </button>}
-
             </DownloadTableExcel>
 
-
             <div className="mt-5">
-                <div className="overflow-x-auto">
-                    <table className="table text-center" ref={tableRef}>
-                        {/* head */}
-                        <thead>
-                            <tr className="text-blue-800 font-semibold text-base">
-                                <th></th>
-                                <th>code</th>
-                                <th>12110</th>
-                                <th>12120</th>
-                                <th>12500</th>
-                                <th>12210</th>
-                                <th>12220</th>
-                                <th>12230</th>
-                                <th>12240</th>
-                                <th>12250</th>
-                                <th>12330</th>
-                                <th>12340</th>
-                                <th>12350</th>
-                                <th>12360</th>
-                                <th>12370</th>
-                                <th>12380</th>
-                                <th>12390</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody className="">
-                            {/*  row  */}
-                            {sbs_data.map((data, index) => <Sbs_Table_data key={data.code} data={data} index={index} ></Sbs_Table_data>)}
-                        </tbody>
-                    </table>
-
-
+                <div className="overflow-x-auto w-full">
+                    <Swiper
+                        direction={'horizontal'}
+                        slidesPerView={1}
+                        spaceBetween={15}
+                        freeMode={true}
+                        pagination={{
+                            clickable: true,
+                        }}
+                        modules={[FreeMode, Pagination]}
+                        className="mySwiper"
+                    >
+                        <SwiperSlide></SwiperSlide>
+                        <SwiperSlide>
+                            <table className="table text-center cursor-pointer" ref={tableRef}>
+                                {/* head */}
+                                <thead>
+                                    <Constant_Titles></Constant_Titles>
+                                </thead>
+                                <tbody className="">
+                                    {/*  row  */}
+                                    <SBS_Sector_title></SBS_Sector_title>
+                                    {/*  row  */}
+                                    <SBS_Sector_Code_Row></SBS_Sector_Code_Row>
+                                    {/*  row  */}
+                                    {sbs_data.map((data, index) => <Sbs_Table_data
+                                        key={data.code} data={data}
+                                        index={index} >
+                                    </Sbs_Table_data>)}
+                                    {/*  row  */}
+                                    {<SBS_Vertical_Total data={sbs_data}></SBS_Vertical_Total>}
+                                </tbody>
+                            </table>
+                        </SwiperSlide>
+                    </Swiper>
                 </div>
             </div>
-
         </section>
     );
 };

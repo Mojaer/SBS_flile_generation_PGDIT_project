@@ -138,14 +138,14 @@ const Data = () => {
                     {!monthlyData.error && <table className="table">
                         {/* head */}
                         <thead>
-                            <tr className="text-blue-800 font-semibold text-base">
+                            <tr className="text-blue-800 font-semibold text-base ">
                                 <th></th>
                                 <th>ACC NO.</th>
                                 <th>ACC Name</th>
                                 <th>Currency</th>
                                 <th>Amount</th>
-                                <th>H_S Code</th>
-                                <th>V_S Code</th>
+                                <th>Instrument Code</th>
+                                <th>Sector Code</th>
                                 <th></th>
                             </tr>
                         </thead>
